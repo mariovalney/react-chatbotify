@@ -16,7 +16,6 @@ export default ({mode}) => {
         entry: path.resolve(__dirname, "src/index.tsx"),
         name: "react-chatbotify",
         fileName: "index",
-        formats: ["es", "cjs"],
       },
       rollupOptions: {
         external: [
@@ -26,12 +25,30 @@ export default ({mode}) => {
           "react/jsx-runtime",
           "react/jsx-dev-runtime"
         ],
-        output: {
-          globals: {
-            react: "React",
+        output: [
+          {
+            entryFileNames: "index.[format].js",
+            globals: { react: "React" },
+            format: "es",
+            intro: 'import "./style.css";',
           },
-          intro: 'import "./style.css";',
-        },
+          {
+            entryFileNames: "index.[format].js",
+            globals: { react: "React" },
+            format: "cjs",
+            intro: 'import "./style.css";',
+          },
+          {
+            entryFileNames: "index.nocss.[format].js",
+            globals: { react: "React" },
+            format: "es",
+          },
+          {
+            entryFileNames: "index.nocss.[format].js",
+            globals: { react: "React" },
+            format: "cjs",
+          },
+        ],
       },
       outDir: "../dist",
     },
