@@ -18,6 +18,8 @@ const filesToRemove = [
 // types to copy
 const indexDts = path.join(distDir, "index.d.ts");
 const indexCts = path.join(distDir, "index.d.cts");
+const indexNoCssDts = path.join(distDir, "index.nocss.d.ts");
+const indexNoCssCts = path.join(distDir, "index.nocss.d.cts");
 
 // handles removing of files
 const removeFiles = (files) => {
@@ -33,7 +35,7 @@ const removeFiles = (files) => {
 };
 
 // handles copying of files
-const copyIndexDtsToCts = (src, dest) => {
+const copyIndexFiles = (src, dest) => {
 	fs.copyFile(src, dest, (err) => {
 		if (err) {
 			console.error(`Error copying ${src} to ${dest}:`, err);
@@ -45,4 +47,6 @@ const copyIndexDtsToCts = (src, dest) => {
 
 // run post build actions
 removeFiles(filesToRemove);
-copyIndexDtsToCts(indexDts, indexCts);
+copyIndexFiles(indexDts, indexCts);
+copyIndexFiles(indexDts, indexNoCssDts);
+copyIndexFiles(indexDts, indexNoCssCts);
